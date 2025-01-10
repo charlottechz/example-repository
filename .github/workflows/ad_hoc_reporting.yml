@@ -21,27 +21,4 @@ jobs:
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
         run: |
-          python3 ad_hoc_reporting.pyname: Ad Hoc Reporting Automation
-
-on:
-  schedule:
-    - cron: '0 * * * *'  # Runs every hour to create a random commit time
-  workflow_dispatch:  # Allows you to trigger the workflow manually
-
-jobs:
-  run-reporting-script:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Run Ad Hoc Reporting Script
-        env:
-          GITHUB_WORKSPACE: ${{ github.workspace }}
-        run: |
           python3 ad_hoc_reporting.py
