@@ -17,10 +17,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
-        run: |
-          pip install random
-
       - name: Run Ad Hoc Reporting Script
         run: |
           python3 ad_hoc_reporting.py
