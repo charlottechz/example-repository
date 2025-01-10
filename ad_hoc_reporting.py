@@ -3,35 +3,29 @@ import random
 import datetime
 import subprocess
 
-# Set the repository path (replace with your own)
+# Set the repository path (replace with your repo path)
 REPO_PATH = '/path/to/your/repo'
 
 # Change to your repository directory
 os.chdir(REPO_PATH)
 
-# Number of reports to create per week (random between 1 to 5)
-reports_per_week = random.randint(1, 5)
-
 # Get today's date
 today = datetime.date.today()
+date_str = today.strftime('%Y-%m-%d')
 
-# Get the start of the week (Monday)
-start_of_week = today - datetime.timedelta(days=today.weekday())
+# Generate a random time for the commit
+hour = random.randint(0, 23)
+minute = random.randint(0, 59)
 
-# Generate random days to create reports this week
-days_to_report = random.sample(range(5), reports_per_week)
+# Format the random time
+commit_time = f'{date_str}T{hour:02}:{minute:02}:00'
 
-# Loop through the days and create ad hoc reports
-for day in days_to_report:
-    date = start_of_week + datetime.timedelta(days=day)
-    date_str = date.strftime('%Y-%m-%d')
+# Create a new report file
+filename = f'ad-hoc-report-{date_str}.txt'
+with open(filename, 'w') as f:
+    f.write(f'Ad Hoc Report generated on {date_str} at {hour:02}:{minute:02}')
 
-    # Create a report file and commit
-    filename = f'ad-hoc-report-{date_str}.txt'
-    with open(filename, 'w') as f:
-        f.write(f'Ad Hoc Report generated on {date_str}')
-
-    # Git commands to add, commit, and push
-    subprocess.run(['git', 'add', filename])
-    subprocess.run(['git', 'commit', '--date', f'{date_str}T12:00:00', '-m', f'Ad Hoc Report generated on {date_str}'])
-    subprocess.run(['git', 'push'])
+# Git commands to add, commit, and push
+subprocess.run(['git', 'add', filename])
+subprocess.run(['git', 'commit', '--date', commit_time, '-m', f'Ad Hoc Report generated on {date_str}'])
+subprocess.run(['git', 'push'])
