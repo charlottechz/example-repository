@@ -1,22 +1,25 @@
 name: Ad Hoc Reporting Automation
 
-# Trigger the workflow on a schedule (every Monday at 9 AM) or manually
 on:
   schedule:
-    - cron: '0 9 * * 1'  # Every Monday at 9 AM
-  workflow_dispatch:  # Allows you to trigger it manually from GitHub
+    - cron: '0 * * * *'  # Runs every hour to create a random commit time
+  workflow_dispatch:  # Allows you to trigger the workflow manually
 
 jobs:
   run-reporting-script:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Pulls your repository code
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install random
 
       - name: Run Ad Hoc Reporting Script
         run: |
