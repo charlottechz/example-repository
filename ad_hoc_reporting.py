@@ -3,8 +3,8 @@ import random
 import datetime
 import subprocess
 
-# Set the repository path (replace with your repo path)
-REPO_PATH = '/path/to/your/repo'
+# Automatically set the working directory to the repository root
+REPO_PATH = os.getenv('GITHUB_WORKSPACE')
 
 # Change to your repository directory
 os.chdir(REPO_PATH)
